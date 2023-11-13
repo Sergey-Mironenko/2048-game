@@ -16,10 +16,10 @@ const game = {
   freeCells: 16,
   score: 0,
   gameField: [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
+    [2, 2, 2, 2],
+    [4, 4, 4, 4],
+    [8, 8, 8, 8],
+    [16, 16, 16, 16],
   ],
   update() {
     this.gameField.map((row, rowIndex) => {
@@ -127,12 +127,14 @@ const game = {
       const mergedCells = [false, false, false, false];
 
       for (let i = row.length - 1; i > 0; i--) {
-        row.sort((current, prev) => {
-          if ((current - prev) < 0) {
-            this.isMoved = true;
-          }
+        row.sort((current, prev) => { 
+          if (current === 0) {
+            if ((current - prev) < 0) {
+              this.isMoved = true;
+            }
 
-          return current - prev;
+            return current - prev;
+          } 
         });
 
         if (row[i] === row[i - 1] && !mergedCells[i] && row[i] !== 0) {
@@ -153,11 +155,13 @@ const game = {
 
       for (let i = 1; i < row.length; i++) {
         row.sort((current, prev) => {
-          if ((prev - current) < 0) {
-            this.isMoved = true;
-          }
+          if (prev === 0) {
+            if ((prev - current) < 0) {
+              this.isMoved = true;
+            }
 
-          return prev - current;
+            return prev - current;
+          }
         });
 
         if (row[i] === row[i - 1] && !mergedСells[i - 1] && row[i] > 0) {
